@@ -39,7 +39,7 @@ class one{
 		}
 		print ' 远程文件：'.$remotepath.PHP_EOL;
 		
-		$filesize = onedrive::_filesize($localfile) OR die('无法获取文件大小');
+		$filesize = onedrive::_filesize($localfile) OR die('Err:无法获取文件大小');
 		if($filesize < 10485760){
 			print ' 上传方式：直接上传'.PHP_EOL;
 			$begin_time = microtime(true);
@@ -48,7 +48,7 @@ class one{
 				$upload_time = microtime(true) - $begin_time;
 				print ' 上传成功:'.onedrive::human_filesize($filesize/$upload_time).'/s'.PHP_EOL;
 			}else{
-				print ' 上传失败!'.PHP_EOL;
+				print 'Err: 上传失败!'.PHP_EOL;
 			}
 		}else{
 			print ' 上传方式：分块上传'.PHP_EOL;
@@ -131,7 +131,7 @@ class one{
 		}
 		
 		if(empty($info['url'])){
-			print ' 获取会话失败！'.PHP_EOL;
+			print 'Err 获取会话失败！'.PHP_EOL;
 			sleep(3);
 			return self::upload_large_file($localfile, $remotepath);
 		}
@@ -159,7 +159,7 @@ class one{
 			print ' 上传完成！'.PHP_EOL;
 			return;
 		}else{
-			print ' 失败!'.PHP_EOL;
+			print 'Err 失败!'.PHP_EOL;
 			$data = onedrive::upload_session_status($info['url']);
 			if(empty($data)|| $info['length']<100){
 				onedrive::delete_upload_session($info['url']);
